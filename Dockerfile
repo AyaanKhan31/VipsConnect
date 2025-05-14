@@ -21,4 +21,4 @@ RUN ./gradlew bootJar --no-daemon
 EXPOSE 8080
 
 # Run the app
-CMD ["java", "-jar", "build/libs/your-app-name-0.0.1-SNAPSHOT.jar"]
+CMD ["java", "-jar", "build/libs/VipsConnect-0.0.1-SNAPSHOT.jar"]
