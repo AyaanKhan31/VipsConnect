@@ -5,23 +5,15 @@ import com.vips.vipsconnect.models.User;
 import com.vips.vipsconnect.repositories.UserRepository;
 import com.vips.vipsconnect.security.JwtTokenProvider;
 import com.vips.vipsconnect.services.AuthenticationService;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -40,6 +32,7 @@ public class AuthController {
     private JwtTokenProvider jwtTokenProvider;
 
 
+    @CrossOrigin(origins = "*")
     @PostMapping("/signup")
     public ResponseEntity<String> signUp(@RequestBody User request) {
         if (userRepository.findByEmail(request.getEmail()).isPresent()) {
@@ -58,19 +51,6 @@ public class AuthController {
         return ResponseEntity.ok("User registered successfully!");
     }
 
-
-
-//    @CrossOrigin(origins = "*")  // Allows all origins (can be restricted later)
-//    @PostMapping("/login")
-//    public ResponseEntity<?> login(@RequestBody LoginUser loginRequest) {
-//        User user = authenticationService.login(loginRequest.getEmail(), loginRequest.getPassword());
-//
-//        if (user != null) {
-//            return ResponseEntity.ok(user); // Send user data (or token in a real app)
-//        }
-//
-//        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials");
-//    }
     @CrossOrigin(origins = "*")
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginUser loginRequest) {
